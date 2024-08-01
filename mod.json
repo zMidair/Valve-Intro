@@ -10,5 +10,8 @@
 	"name": "Valve Intro",
 	"version": "v1.0.0",
 	"developer": "Midair",
-	"description": ""
+	"description": "",
+	"resources": {
+		"files": ["resources/intro.mpg"]
+	}
 }

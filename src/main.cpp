@@ -1,33 +1,21 @@
 #include <Geode/Geode.hpp>
-
+#include "VideoPlayer.hpp"
+#include <Geode/modify/MenuLayer.hpp>
 using namespace geode::prelude;
 
-#include <Geode/modify/MenuLayer.hpp>
-class $modify(MyMenuLayer, MenuLayer) {
-	bool init() {
-		if (!MenuLayer::init()) {
-			return false;
-		}
+class $modify(MenuLayer)
+{
+	void onMyProfile(cocos2d::CCObject* sender)
+	{
+		videoplayer::VideoPlayer* intro = videoplayer::VideoPlayer::create(Mod::get()->getResourcesDir() / "intro.mpg", false);
 
-		log::debug("Hello from my MenuLayer::init hook! This layer has {} children.", this->getChildrenCount());
+		auto VideoScene = CCScene::create();
 
-		auto myButton = CCMenuItemSpriteExtra::create(
-			CCSprite::createWithSpriteFrameName("GJ_likeBtn_001.png"),
-			this,
-			menu_selector(MyMenuLayer::onMyButton)
-		);
+		CCSize screenSize = CCDirector::sharedDirector()->getWinSize();
+		intro->setPosition(screenSize / 2);
+		intro->fillSize(screenSize);
+		VideoScene->addChild(intro, 9999);
 
-		auto menu = this->getChildByID("bottom-menu");
-		menu->addChild(myButton);
-
-		myButton->setID("my-button"_spr);
-
-		menu->updateLayout();
-
-		return true;
-	}
-
-	void onMyButton(CCObject*) {
-		FLAlertLayer::create("Geode", "Hello from my custom mod!", "OK")->show();
+		CCDirector::sharedDirector()->pushScene(VideoScene);
 	}
 };
