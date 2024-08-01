@@ -13,5 +13,6 @@
 	"description": "",
 	"resources": {
 		"files": ["resources/intro.mpg"]
-	}
+	},
+	"early-load": true
 }

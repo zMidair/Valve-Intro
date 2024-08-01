@@ -1,5 +1,6 @@
 #define PL_MPEG_IMPLEMENTATION
 #include "VideoPlayer.hpp"
+#include "MidairsVideoLayer.hpp"
 #include <math.h>
 
 using namespace geode::prelude;
@@ -156,6 +157,8 @@ namespace videoplayer {
     }
 
     void VideoPlayer::draw() {
+        if(plm_has_ended(m_stream)) MidairsVideoLayer::onVideoFinished();
+
         CC_NODE_DRAW_SETUP();
 
         for (int i = 0; i < 3; i++) {
