@@ -1,0 +1,14 @@
+{
+	"geode": "3.3.0",
+	"gd": {
+		"win": "2.206",
+		"android": "2.206",
+		"mac": "2.206",
+		"ios": "2.206"
+	},
+	"id": "midair.valve_intro",
+	"name": "Valve Intro",
+	"version": "v1.0.0",
+	"developer": "Midair",
+	"description": ""
+}
