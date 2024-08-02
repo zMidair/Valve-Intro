@@ -6,10 +6,15 @@ using namespace geode::prelude;
 
 class $modify(LoadingLayer)
 {
-
-	virtual bool init(bool p0)
+	void loadAssets()
 	{
-		MidairsVideoLayer::play(this);
-		return true;
+		LoadingLayer::loadAssets();
+		/*
+		CCScene* scene = CCScene::create();
+		CCScene* running = CCDirector::get()->getRunningScene();
+		running->retain();
+		this->retain();
+		MidairsVideoLayer::play(scene, running, this);
+		*/
 	}
 };

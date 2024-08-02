@@ -3,31 +3,36 @@ using namespace geode::prelude;
 class MidairsVideoLayer
 {
     private:
-        static inline LoadingLayer* parentLayer;
-        static inline videoplayer::VideoPlayer* intro;
+        static inline CCScene* nextScene;
+        static inline LoadingLayer* _loadingLayer;
         static inline bool firstTime = true;
         static inline bool finished = false;
     public:
-        static void play(LoadingLayer* layer)
+        static void play(CCScene* scene, CCScene* after, LoadingLayer* ldLayer)
         {
             if(firstTime)
             {
                 firstTime = false;
-                parentLayer = layer;
+                _loadingLayer = ldLayer;
 
-                intro = videoplayer::VideoPlayer::create(Mod::get()->getResourcesDir() / "intro.mpg", false);
+                videoplayer::VideoPlayer* intro = videoplayer::VideoPlayer::create(Mod::get()->getResourcesDir() / "intro.mpg", false);
 
                 CCSize screenSize = CCDirector::sharedDirector()->getWinSize();
                 intro->setPosition(screenSize / 2);
                 intro->fillSize(screenSize);
-                layer->addChild(intro, 9999);
+                scene->addChild(intro, 9999);
+
+                CCDirector::get()->replaceScene(scene);
+                nextScene = after;
             }
         }
         static void onVideoFinished()
         {
             finished = true;
             log::info("video finished");
-            intro->setVisible(false);
+            CCDirector::get()->pushScene(nextScene);
+            nextScene->release();
+            _loadingLayer->release();
         }
         static bool hasFinished()
         {

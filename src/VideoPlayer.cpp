@@ -110,6 +110,7 @@ namespace videoplayer {
 
     void VideoPlayer::initAudio() {
         FMODAudioEngine* engine = FMODAudioEngine::sharedEngine();
+        engine->init();
 
         int sampleRate = plm_get_samplerate(m_stream);
 
